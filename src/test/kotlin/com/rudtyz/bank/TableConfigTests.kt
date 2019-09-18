@@ -14,7 +14,7 @@ import javax.validation.Validator
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class AppDataTests {
+class TableConfigTests {
 
     @Autowired
     lateinit var deviceUsage: Map<Int, DeviceUsage>
@@ -34,16 +34,4 @@ class AppDataTests {
     fun 설정_저장_경로() {
         Assert.assertNotEquals(configDir.length, 0)
     }
-
-    @Test
-    fun 유효성_검사() {
-        val r = DeviceUsage( 2000, 0.0,1.0,2.0,3.0,4.0,999.0 )
-        val v = Validation.buildDefaultValidatorFactory().validator
-        val r0 = v.validate(r).forEach { println(it.message) }
-        val r1 = v.validateProperty(v, "smartPadUsage")
-        print(r0)
-        print(r1)
-    }
-
-
 }
