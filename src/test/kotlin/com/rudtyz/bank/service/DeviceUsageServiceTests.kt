@@ -17,7 +17,7 @@ class DeviceUsageRepositoryTests {
     @Test
     fun 정상_2017() {
         val r0 = deviceUsageService.getDeviceUsage(2017)
-        Assert.assertNotEquals(r0!!, null)
+        Assert.assertNotEquals(r0, null)
         Assert.assertEquals(r0.year, 2017)
         Assert.assertEquals(r0.rate, 90.6, 0.5)
     }
@@ -25,22 +25,22 @@ class DeviceUsageRepositoryTests {
     @Test
     fun 정상_2018() {
         val r0 = deviceUsageService.getDeviceUsage(2018)
-        Assert.assertNotEquals(r0!!, null)
+        Assert.assertNotEquals(r0, null)
         Assert.assertEquals(r0.year, 2018)
         Assert.assertEquals(r0.rate, 90.5, 0.5)
     }
 
     @Test
     fun 에러_2010() {
-        val r0 = deviceUsageService.getDeviceUsage(2010)
-        Assert.assertEquals(r0, null)
+        try {
+            deviceUsageService.getDeviceUsage(2010)
+            Assert.assertTrue(false)
+        } catch (e: Exception) {
+        }
     }
 
     @Test
     fun 테이블리로드() {
         deviceUsageService.reloadTable()
     }
-
-
-
 }
