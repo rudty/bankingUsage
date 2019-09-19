@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(indexes = [
         Index(columnList = "year, deviceName"),
-        Index(columnList = "deviceName")])
+        Index(columnList = "deviceName, rate")])
 data class DeviceUsage(
         @Id
         @Column
@@ -19,5 +19,5 @@ data class DeviceUsage(
         var deviceName: String = "",
 
         @Column
-        var usage: Double = 0.0
+        var rate: Double = 0.0
 )

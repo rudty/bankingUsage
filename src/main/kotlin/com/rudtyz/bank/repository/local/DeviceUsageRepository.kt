@@ -2,6 +2,7 @@ package com.rudtyz.bank.repository.local
 
 import com.rudtyz.bank.model.DeviceUsage
 import org.springframework.stereotype.Component
+import javax.transaction.Transactional
 
 /**
  * Repository 대신 map 으로 비슷하게 반환 
@@ -21,14 +22,45 @@ class DeviceUsageRepository(
             storage[deviceUsage.year] = mutableListOf(deviceUsage)
         }
 
-        dummyDeviceUsageRepository.saveAndFlush(deviceUsage)
+        dummyDeviceUsageRepository.save(deviceUsage)
+    }
+
+    @Transactional
+    fun saveAll(entities: Iterable<DeviceUsage>) {
+        for (e in entities) {
+            save(e)
+        }
     }
 
     /**
-     * 특정 년도를 입력받아 그 해에 인터넷뱅킹에 가장 많이 접속하는 기기 이름을 출력하세요.
+     * select * from table where year = @year order by usage limit 1
      */
-    fun findByYearAndDeviceNameNotOrderByDescUsageLimit1(year: Int, deviceName: String): DeviceUsage? =
+    fun findByYearOrderByUsageDescLimit1(year: Int): DeviceUsage? =
             storage[year]
-                    ?.filterNot { it.deviceName == deviceName }
-                    ?.maxBy { it.usage }
+                    ?.maxBy { it.rate }
+
+
+    /**
+     * select * from table where device_name = @deviceName order by usage limit 1
+     */
+    fun findByDeviceNameOrderByUsageDescLimit1(deviceName: String): DeviceUsage? =
+            storage.flatMap { it.value }
+                    .filter { it.deviceName == deviceName }
+                    .maxBy { it.rate }
+
+
+    /**
+     * select distinct device_name from table
+     */
+    fun findDistinctDeviceName(): List<String> =
+            storage.flatMap { it.value }
+                    .map { it.deviceName }
+                    .distinct()
+
+    /**
+     * select count(*) from table
+     */
+    fun count() =
+            storage.flatMap { it.value }
+                    .count()
 }

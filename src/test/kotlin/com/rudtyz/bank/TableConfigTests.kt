@@ -1,6 +1,7 @@
 package com.rudtyz.bank
 
 import com.rudtyz.bank.model.DeviceUsage
+import com.rudtyz.bank.repository.local.DeviceUsageRepository
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,7 +18,7 @@ import javax.validation.Validator
 class TableConfigTests {
 
     @Autowired
-    lateinit var deviceUsage: Map<Int, DeviceUsage>
+    lateinit var deviceUsageRepository: DeviceUsageRepository
 
     @Autowired
     lateinit var configDir: String
@@ -27,7 +28,7 @@ class TableConfigTests {
 
     @Test
     fun 파일_DATA_CSV_파싱_성공() {
-        Assert.assertNotEquals(deviceUsage.size, 0)
+        Assert.assertNotEquals(deviceUsageRepository.count(), 0)
     }
 
     @Test

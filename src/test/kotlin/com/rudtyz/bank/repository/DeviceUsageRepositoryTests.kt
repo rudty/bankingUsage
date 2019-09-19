@@ -17,15 +17,15 @@ class DeviceUsageRepositoryTests {
 
     @Test
     fun 정상확인2017() {
-        val r0 = deviceUsageRepository.findByYearAndDeviceNameNotOrderByDescUsageLimit1(2017, "이용률")
+        val r0 = deviceUsageRepository.findByYearOrderByUsageDescLimit1(2017)
         Assert.assertNotEquals(r0!!, null)
-        Assert.assertEquals(r0.usage, 90.6, 0.5)
+        Assert.assertEquals(r0.rate, 90.6, 0.5)
         Assert.assertEquals(r0.year, 2017)
     }
 
     @Test
     fun 정상확인2018() {
-        val r0 = deviceUsageRepository.findByYearAndDeviceNameNotOrderByDescUsageLimit1(2018, "이용률")
+        val r0 = deviceUsageRepository.findByYearOrderByUsageDescLimit1(2018)
         Assert.assertNotEquals(r0!!, null)
         Assert.assertEquals(r0.year, 2018)
     }
