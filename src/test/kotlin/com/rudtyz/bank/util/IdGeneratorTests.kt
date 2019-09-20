@@ -13,6 +13,6 @@ class IdGeneratorTests {
         }
 
         print(distinct.size)
-        Assert.assertTrue(distinct.size > (1000 - 10))
+        Assert.assertTrue(distinct.size > (1000 - 100))
     }
 }
