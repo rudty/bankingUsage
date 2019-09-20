@@ -16,3 +16,8 @@ class LoginFailIdException(arg: String): RuntimeException("login error $arg")
  * id 혹은 비밀번호 오류
  */
 class LoginFailPasswordException(arg: String): RuntimeException("login error $arg")
+
+/**
+ * 인증이 필요함
+ */
+class AuthorizationKeyRequireException: RuntimeException("api key is not exists")

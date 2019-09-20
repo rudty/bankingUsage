@@ -1,6 +1,8 @@
 package com.rudtyz.bank.interceptor
 
+import com.rudtyz.bank.exception.AuthorizationKeyRequireException
 import com.rudtyz.bank.service.JwtService
+import com.rudtyz.bank.util.getBearerAuthHeader
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import javax.servlet.http.HttpServletRequest
@@ -15,21 +17,15 @@ class JwtInterceptor(
         val jwtService: JwtService
 ): HandlerInterceptor {
 
-    companion object {
-        const val AUTHORIZATION = "Authorization"
-    }
-
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        val token = request.getHeader(AUTHORIZATION)
-        val authTokens = token.split(" ")
+        val token = request.getBearerAuthHeader() ?: throw AuthorizationKeyRequireException()
+        request.setAttribute("token", token)
 
-        if (authTokens[0] == "Bearer") {
-            /*val parse = */jwtService.decode(authTokens[1])
-            // 실제 서비스일떄는 여기서 추가로 인증 수행
-            // (선택) 토큰 갱신하여 재발급 
-            return true
-        }
-        return false
+        // 실제 서비스일떄는 여기서 추가로 인증 수행
+        // (선택) 토큰 갱신하여 재발급
+        // response.setHeader(jwtService.encode())
+        return true
+
     }
 }

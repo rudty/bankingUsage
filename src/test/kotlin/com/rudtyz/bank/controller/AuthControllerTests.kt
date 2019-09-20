@@ -34,6 +34,7 @@ class AuthControllerTests {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("OK"))
 
         //아이디 중복해서 두번
         //실패
@@ -43,7 +44,6 @@ class AuthControllerTests {
                 .param("pw", "test_password")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isInternalServerError)
-//                .andDo(MockMvcResultHandlers.print())
     }
 
     @Test
@@ -54,6 +54,7 @@ class AuthControllerTests {
                 .param("pw", "test_password2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("OK"))
 
         mvc.perform(MockMvcRequestBuilders
                 .post("/auth/signin")
@@ -61,23 +62,28 @@ class AuthControllerTests {
                 .param("pw", "test_password2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("OK"))
     }
 
     @Test
-    fun 회원가입_후_토근_재발급() {
+    fun 회원가입_안하고_로그인() {
         mvc.perform(MockMvcRequestBuilders
-                .post("/auth/signup")
-                .param("userId", "test_user_i22")
-                .param("pw", "test_password2")
+                .post("/auth/signin")
+                .param("userId", "test_user_id_not")
+                .param("pw", "test_password_not")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error").exists())
+    }
 
+    @Test
+    fun 토큰_재발급() {
         mvc.perform(MockMvcRequestBuilders
                 .post("/auth/refresh")
                 .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
-                .param("userId", "test_user_id2")
-                .param("pw", "test_password2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("OK"))
+                .andDo(MockMvcResultHandlers.print())
     }
 }

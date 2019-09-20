@@ -36,5 +36,5 @@ class UserSignService(
         return jwtService.encode("perm" to BankUser.PERMISSION_ADMIN)
     }
 
-    fun refresh(auth: String) = jwtService.encode("perm" to BankUser.PERMISSION_ADMIN)
+    fun refresh(tokenMap: Map<String, Any>) = jwtService.encode("perm" to BankUser.PERMISSION_ADMIN)
 }
