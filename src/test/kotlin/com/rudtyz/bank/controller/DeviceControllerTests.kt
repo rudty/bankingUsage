@@ -1,6 +1,7 @@
 package com.rudtyz.bank.controller
 
 
+import com.rudtyz.bank.service.JwtService
 import org.apache.tomcat.util.json.JSONParser
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,10 +24,14 @@ class DeviceControllerTests {
     @Autowired
     lateinit var mvc: MockMvc
 
+    @Autowired
+    lateinit var jwtService: JwtService
+
     @Test
     fun 기본_2011_연결_확인() {
         mvc.perform(MockMvcRequestBuilders
                 .get("/device/rank/year/2011")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk)
@@ -40,6 +45,7 @@ class DeviceControllerTests {
     fun 없는_데이터() {
         mvc.perform(MockMvcRequestBuilders
                 .get("/device/rank/year/2001")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isNotFound)
@@ -49,6 +55,7 @@ class DeviceControllerTests {
     fun 모든디바이스() {
         mvc.perform(MockMvcRequestBuilders
                 .get("/device/all")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk)
@@ -61,6 +68,7 @@ class DeviceControllerTests {
     fun 모든디바이스_그리고2011() {
         val result = mvc.perform(MockMvcRequestBuilders
                 .get("/device/all")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk)
@@ -75,6 +83,7 @@ class DeviceControllerTests {
 
         mvc.perform(MockMvcRequestBuilders
                 .get("/device/rank/id/$firstDeviceId")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk)
@@ -90,6 +99,7 @@ class DeviceControllerTests {
     fun 테이블_리로드() {
         mvc.perform(MockMvcRequestBuilders
                 .get("/device/reload")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk)
