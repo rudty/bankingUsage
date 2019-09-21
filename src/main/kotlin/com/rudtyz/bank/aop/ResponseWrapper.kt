@@ -49,7 +49,7 @@ class ResponseWrapper {
      *  }
      *  과 같이 반환, 일괄적으로 위와같은 형식으로 만들어준다.
      */
-    @Around("execution(* com.rudtyz.bank.controller.*.error*(..))")
+    @Around("execution(* com.rudtyz.bank.exception.ErrorController.error*(..))")
     fun errorResultWrapper(joinPoint: ProceedingJoinPoint): Any? {
         try {
             val result = joinPoint.proceed()
