@@ -43,7 +43,7 @@ class AuthControllerTests {
                 .param("userId", "test_user_id")
                 .param("pw", "test_password")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isInternalServerError)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest)
     }
 
     @Test
