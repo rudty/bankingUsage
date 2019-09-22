@@ -44,7 +44,8 @@ class DeviceUsageRepository(
      * select * from table where device_name = @deviceName order by usage limit 1
      */
     fun findByDeviceNameOrderByUsageDescLimit1(deviceName: String): DeviceUsage? =
-            storage.flatMap { it.value }
+            storage.values
+                    .flatten()
                     .filter { it.deviceName == deviceName }
                     .maxBy { it.rate }
 
@@ -53,7 +54,8 @@ class DeviceUsageRepository(
      * select distinct device_name from table
      */
     fun findDistinctDeviceName(): List<String> =
-            storage.flatMap { it.value }
+            storage.values
+                    .flatten()
                     .map { it.deviceName }
                     .distinct()
 
