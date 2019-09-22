@@ -57,7 +57,7 @@ cd bankingUsage
 - 회원가입/로그인을 제외한 모든 API는 헤더에 인증이 필요로 한다
   형식은 다음과 같다.
 
-```Authorization: Bearer 토큰```
+  ```Authorization: Bearer 토큰```
 
 - 올바른 응답일 시 http status는 200으로 반환된다. 
 - 올바르지 않은 응답일 시 http status는 200이 아니고 response body에 에러에 대한 응답을 전송한다. 
