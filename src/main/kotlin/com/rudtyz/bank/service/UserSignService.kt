@@ -15,7 +15,7 @@ class UserSignService(
         private val bankUserRepository: BakUserRepository,
         private val jwtService: JwtService
 ) {
-    @Transactional(isolation=Isolation.SERIALIZABLE)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     fun signUp(id: String, pw: String): String {
         if (bankUserRepository.existsById(id)) {
             throw UserIdExistsException(id)
@@ -24,7 +24,7 @@ class UserSignService(
         return jwtService.encode("perm" to BankUser.PERMISSION_ADMIN)
     }
 
-    @Transactional(isolation=Isolation.SERIALIZABLE)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     fun signIn(id: String, pw: String): String {
         val mayBeUser = bankUserRepository.findById(id)
         val user = mayBeUser.orElseGet { throw LoginFailIdException(id) }
