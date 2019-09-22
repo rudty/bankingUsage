@@ -19,7 +19,7 @@ class DatasetConfig {
      *
      * @return 설정 디렉터리 경로
      */
-    private fun findConfigDir(args: ApplicationArguments): String {
+    private fun findDatasetDir(args: ApplicationArguments): String {
         val argumentPath = args
                 .getOptionValues(DATASET_PATH)
                 ?.first()
@@ -34,6 +34,6 @@ class DatasetConfig {
 
     @Bean
     fun getDatasetDir(args: ApplicationArguments): String {
-        return findConfigDir(args)
+        return findDatasetDir(args)
     }
 }

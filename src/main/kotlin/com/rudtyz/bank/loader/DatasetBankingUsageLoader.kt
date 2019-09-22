@@ -10,7 +10,7 @@ import java.io.File
 import java.io.FileReader
 
 @Component
-class TableBankingUsageLoader(
+class DatasetBankingUsageLoader(
         private val datasetDir: String,
         private val deviceUsageRepository: DeviceUsageRepository,
         private val deviceListRepository: DeviceListRepository
@@ -29,11 +29,11 @@ class TableBankingUsageLoader(
      * )
      * 예를들어 row 가
      *
-     * 기간,이용률,스마트폰
-     * 2011,52.9,11 이라면
+     * 기간,이용률,스마트폰,데스크탑 컴퓨터
+     * 2011,52.9,11,95.1 이라면
      *
-     * DeviceUsage(2011, 이용률, 52.9)
      * DeviceUsage(2011, 스마트폰, 11)
+     * DeviceUsage(2011, 이용률, 95.1)
      *
      * 과 같이 2개의 객체가 만들어진다.
      *

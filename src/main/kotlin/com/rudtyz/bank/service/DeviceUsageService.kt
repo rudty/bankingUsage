@@ -2,7 +2,7 @@ package com.rudtyz.bank.service
 
 import com.rudtyz.bank.exception.InvalidDeviceIdException
 import com.rudtyz.bank.exception.NoSuchDeviceDataException
-import com.rudtyz.bank.loader.TableBankingUsageLoader
+import com.rudtyz.bank.loader.DatasetBankingUsageLoader
 import com.rudtyz.bank.model.Device
 import com.rudtyz.bank.model.DeviceUsage
 import com.rudtyz.bank.repository.global.DeviceListRepository
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class DeviceUsageService(
-        private val tableLoader: TableBankingUsageLoader,
+        private val datasetLoader: DatasetBankingUsageLoader,
         private val deviceUsageRepository: DeviceUsageRepository,
         private val deviceListRepository: DeviceListRepository
 ) {
@@ -54,7 +54,7 @@ class DeviceUsageService(
     /**
      * 파일시스템에서 다시 로드
      */
-    fun reloadTable() = tableLoader.reloadTable()
+    fun reloadTable() = datasetLoader.reloadTable()
 
 
     /**

@@ -117,7 +117,7 @@ refresh 토큰 재발급 API: 기존에 발급받은 토큰을 Authorization 헤
 ---
 
 ### 데이터 파일에서 각 레코드를 데이터베이스에 저장하는 코드
-[연결](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/loader/TableBankingUsageLoader.kt#L42)
+[연결](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/loader/DatasetBankingUsageLoader.kt#L42)
 
 ---
 
