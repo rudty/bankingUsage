@@ -19,18 +19,18 @@ cd bankingUsage
 ```
 
 ## 문제 해결 전략
-  * 1 로그인, 회원가입을 제외한 모든 API들은 인증이 필요함. 
+  * 로그인, 회원가입을 제외한 모든 API들은 인증이 필요함. 
     - 공통 인증 기능을 [interceptor](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/interceptor/JwtInterceptor.kt)로 제작, [등록](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/config/AuthInterceptorConfig.kt)
-  * 2 데이터 csv는 고정 값으로 변경이 없기에 어떠한 이유로 서버가 종료되어 재시작 하여도 데이터 유실이 없음.
+  * 데이터 csv는 고정 값으로 변경이 없기에 어떠한 이유로 서버가 종료되어 재시작 하여도 데이터 유실이 없음.
      서버 시작 시 db에는 [등록](#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8C%8C%EC%9D%BC%EC%97%90%EC%84%9C-%EA%B0%81-%EB%A0%88%EC%BD%94%EB%93%9C%EB%A5%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-%EC%BD%94%EB%93%9C)하지만(요구사항) 실제로 사용은 메모리에 저장된 값을 사용
     문법은 JPA interface로 만들수 있는것과 유사하게 하여 이후 쉽게 변경할 수 있도록 함.
-  * 3 반드시 최신의 데이터를 로드해야만 하는 유저 계정 정보는 db를 사용
+  * 반드시 최신의 데이터를 로드해야만 하는 유저 계정 정보는 db를 사용
     - 디바이스 목록은 자주 사용될 수 있지만 캐싱하여 사용
-  * 4 요구사항의 모든 리스트 형태 반환값은 `{"devices":...` 로 시작하고 모든 1개 객체의 반환 값은 `{"result":...` 이므로
+  * 요구사항의 모든 리스트 형태 반환값은 `{"devices":...` 로 시작하고 모든 1개 객체의 반환 값은 `{"result":...` 이므로
      반환값을 공통적으로 [래핑하는 클래스](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/aop/ResponseWrapper.kt) 제작
-  * 5 device_id 는 중복되지 않게 시간 + 랜덤 생성값 으로 [구현](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/util/IdGenerator.kt) 
+  * device_id 는 중복되지 않게 시간 + 랜덤 생성값 으로 [구현](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/util/IdGenerator.kt) 
     - 실제 서비스 시에서는 고유 아이디의 중요성에 따라서 몇가지의 고유 아이디를 추가하여 더욱 중복이 없게 기능 추가 가능 
-  * 6 요구 사항에는 없지만 예외 발생 시 `{"error":...` 형태의 에러 로그를 출력
+  * 요구 사항에는 없지만 예외 발생 시 `{"error":...` 형태의 에러 로그를 출력
     - 이후 예외 로그를 저장. db에 저장하고 있으므로 이후 db의 부하가 예상 될 시 로그 전용 db 연결 필요 
 
 ## 지원 API 
