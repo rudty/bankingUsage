@@ -112,7 +112,7 @@ refresh 토큰 재발급 API: 기존에 발급받은 토큰을 Authorization 헤
 ---
 
 ### 인터넷뱅킹 서비스 접속 기기 목록을 출력
-/device/all
+[/device/all](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/controller/DeviceController.kt)
 
 |response body|
 |-|
@@ -121,7 +121,7 @@ refresh 토큰 재발급 API: 기존에 발급받은 토큰을 Authorization 헤
 ---
 
 ### 특정 년도를 입력받아 그 해에 인터넷뱅킹에 가장 많이 접속하는 기기 출력
-/device/rank/year/{연도}
+[/device/rank/year/{연도}](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/controller/DeviceController.kt)
 
 |response body|
 |-|
@@ -130,7 +130,7 @@ refresh 토큰 재발급 API: 기존에 발급받은 토큰을 Authorization 헤
 ---
 
 ### 디바이스 아이디를 입력받아 인터넷뱅킹에 접속 비율이 가장 많은 해
-/device/rank/id/{디바이스 아이디}
+[/device/rank/id/{디바이스 아이디}](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/controller/DeviceController.kt)
 
 |response body|
 |-|
@@ -144,7 +144,7 @@ refresh 토큰 재발급 API: 기존에 발급받은 토큰을 Authorization 헤
 ---
 
 ###  데이터 파일을 로컬 파일 시스템에서 로딩하여 적재하는 API
-/device/reload
+[/device/reload](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/controller/DeviceController.kt)
 
 |response body|
 |-|
