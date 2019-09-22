@@ -85,7 +85,7 @@ cd bankingUsage
 ---
 
 ### 로그인
-(/auth/signin](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/controller/AuthController.kt)
+[/auth/signin](https://github.com/rudty/bankingUsage/blob/master/src/main/kotlin/com/rudtyz/bank/controller/AuthController.kt)
 
 로그인 API: 입력으로 생성된 계정 (ID, PW)으로 로그인 요청하면 토큰을 발급한다. 
 
