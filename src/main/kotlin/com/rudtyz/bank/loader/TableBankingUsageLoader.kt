@@ -11,7 +11,7 @@ import java.io.FileReader
 
 @Component
 class TableBankingUsageLoader(
-        private val tableDir: String,
+        private val datasetDir: String,
         private val deviceUsageRepository: DeviceUsageRepository,
         private val deviceListRepository: DeviceListRepository
 ) : InitializingBean {
@@ -40,7 +40,7 @@ class TableBankingUsageLoader(
      * 전체 이용률도 들어가지만 현재 사용하고 있지 않음.
      */
     fun reloadTable() {
-        val file = File(tableDir, TABLE_NAME)
+        val file = File(datasetDir, TABLE_NAME)
         val lines = FileReader(file)
                 .readLines()
                 .map { it.split(",") }

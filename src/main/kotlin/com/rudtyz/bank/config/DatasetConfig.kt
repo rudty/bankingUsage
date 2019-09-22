@@ -1,21 +1,19 @@
-package com.rudtyz.bank
+package com.rudtyz.bank.config
 
 import org.springframework.boot.ApplicationArguments
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 
-typealias Year = Int
-
 @Component
-class AppData {
+class DatasetConfig {
 
     companion object {
-        private const val TABLE_PATH = "TABLE_PATH"
+        private const val DATASET_PATH = "DATASET_PATH"
     }
 
     /**
      * 시작 시 검사.
-     * 1. command line 에 설정 파일 디렉터리가 들어왔는지 검사 (--TABLE_PATH=./path)
+     * 1. command line 에 설정 파일 디렉터리가 들어왔는지 검사 (--DATASET_PATH=./path)
      * 2. 환경 변수에 설정 파일 디렉터리가 들어왔는지 검사
      * 3. working 디렉터리와 같은 경로
      *
@@ -23,7 +21,7 @@ class AppData {
      */
     private fun findConfigDir(args: ApplicationArguments): String {
         val argumentPath = args
-                .getOptionValues(TABLE_PATH)
+                .getOptionValues(DATASET_PATH)
                 ?.first()
                 ?: ""
 
@@ -31,11 +29,11 @@ class AppData {
             return argumentPath
         }
 
-       return System.getenv(TABLE_PATH) ?: System.getProperty("user.dir")
+       return System.getenv(DATASET_PATH) ?: System.getProperty("user.dir")
     }
 
     @Bean
-    fun getTableDir(args: ApplicationArguments): String {
+    fun getDatasetDir(args: ApplicationArguments): String {
         return findConfigDir(args)
     }
 }
