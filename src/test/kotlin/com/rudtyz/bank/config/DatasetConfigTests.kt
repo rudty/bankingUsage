@@ -1,4 +1,4 @@
-package com.rudtyz.bank
+package com.rudtyz.bank.config
 
 import com.rudtyz.bank.model.DeviceUsage
 import com.rudtyz.bank.repository.local.DeviceUsageRepository
@@ -15,16 +15,13 @@ import javax.validation.Validator
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class TableConfigTests {
+class DatasetConfigTests {
 
     @Autowired
     lateinit var deviceUsageRepository: DeviceUsageRepository
 
     @Autowired
     lateinit var configDir: String
-
-    @Autowired
-    lateinit var validator: Validator
 
     @Test
     fun 파일_DATA_CSV_파싱_성공() {
