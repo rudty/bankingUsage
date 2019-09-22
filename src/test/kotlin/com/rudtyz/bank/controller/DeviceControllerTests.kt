@@ -93,6 +93,18 @@ class DeviceControllerTests {
 
     }
 
+    @Test
+    fun 연도별_디바이스_목록() {
+        mvc.perform(MockMvcRequestBuilders
+                .get("/device/rank/all")
+                .header("Authorization", "Bearer " + jwtService.encode("test" to "test"))
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.devices[*].device_name").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.devices[*].year").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.devices[*].rate").exists())
+    }
 
 
     @Test
