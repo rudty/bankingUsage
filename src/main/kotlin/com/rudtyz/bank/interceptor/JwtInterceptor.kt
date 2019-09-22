@@ -19,13 +19,19 @@ class JwtInterceptor(
 
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        val token = request.getBearerAuthHeader() ?: throw AuthorizationKeyRequireException()
-        request.setAttribute("token", jwtService.decode(token))
+        try {
+            val token = request.getBearerAuthHeader() ?: throw AuthorizationKeyRequireException()
+            request.setAttribute("token", jwtService.decode(token))
 
-        // 실제 서비스일떄는 여기서 추가로 인증 수행
-        // (선택) 토큰 갱신하여 재발급
-        // response.setHeader(jwtService.encode())
+            // 실제 서비스일떄는 여기서 추가로 인증 수행
+            // (선택) 토큰 갱신하여 재발급
+            // response.setHeader(jwtService.encode())
+        } catch (e: Exception) {
+            //ErrorController.errorRequireApiKey
+            request.getRequestDispatcher("/error/apikey").forward(request, response);
+            return false
+        }
+
         return true
-
     }
 }
