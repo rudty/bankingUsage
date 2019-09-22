@@ -7,7 +7,12 @@ import javax.servlet.http.HttpServletRequest
 
 @RestController
 @ControllerAdvice
-class ErrorController {
+class ErrorController : org.springframework.boot.web.servlet.error.ErrorController{
+    override fun getErrorPath() = "/error"
+
+    @GetMapping("/error")
+    fun onDefaultError() = "error"
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception::class)
     fun errorAny(req: HttpServletRequest, ex: Exception): Any? = "INTERNAL ERROR 0xAC"
@@ -33,6 +38,14 @@ class ErrorController {
     fun errorLoginFailPassword(req: HttpServletRequest, ex: LoginFailPasswordException): Any? = ex.message
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserIdExistsException::class)
+    fun errorLoginIdExists(req: HttpServletRequest, ex: UserIdExistsException): Any? = ex.message
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(AuthorizationKeyRequireException::class)
     fun errorRequireApiKey(req: HttpServletRequest, ex: AuthorizationKeyRequireException): Any? = ex.message
+
+    @RequestMapping("/error/apikey")
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun errorRequireApiKey(): Any? = "require API Key"
 }
